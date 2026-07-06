@@ -1,6 +1,8 @@
 import express from "express";
+import {connection} from "./src/db.js";
 
 const app = express()
+connection();
 
 app.get('/', (req, res) => {
   res.send('Hello World')
