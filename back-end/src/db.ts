@@ -10,8 +10,10 @@ const prisma = new PrismaClient({ adapter });
 export { prisma };
 
 export async function connection() {
+  try {
     await prisma.$connect();
     console.log("Conectado ao DB");
+  } catch (error) {
+    console.log(error)
+  }
 }
-
-connection();
