@@ -7,10 +7,19 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  function onSubmit(e: React.SubmitEvent<HTMLFormElement>) {
+  async function onSubmit(e: React.SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
     console.log({ email, password });
+
+    const response = await fetch("http://localhost:3000/login", {
+      method: "POST",
+      headers: {"Content-Type": "application/json" },
+      body: JSON.stringify( { email, password }),
+    });
+    const data = await response.json();
+    console.log(data);
   }
+
   return (
     <form
       className="flex h-screen items-center justify-center bg-[#2A1911]"
@@ -31,7 +40,7 @@ const Login = () => {
           type="password"
           onChange={(e) => setPassword(e.target.value)}
         />
-        <Button title="Login" variant="primary" />
+        <Button title="Login" variant="primary" type="submit" />
         <Link to="/register" className="w-full">
           <Button title="Não tenho uma conta" variant="secondary" />
         </Link>
